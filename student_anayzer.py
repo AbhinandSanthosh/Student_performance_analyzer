@@ -1,12 +1,6 @@
 # student_analyzer.py
 
 def get_valid_marks(subject):
-    """
-    Function to get valid marks from user.
-    Ensures:
-    - Only numeric input
-    - Marks between 0 and 100
-    """
 
     while True:
         try:
@@ -22,10 +16,6 @@ def get_valid_marks(subject):
 
 
 def get_student_data():
-    """
-    Function to collect student details.
-    Returns student data as dictionary.
-    """
 
     print("\n------ Enter Student Details ------")
 
@@ -56,24 +46,21 @@ def get_student_data():
 
 
 def calculate_grade(avg):
-    """
-    Function to calculate grade based on average marks.
-    """
 
     if avg >= 90:
         return "A"
+
     elif avg >= 75:
         return "B"
+
     elif avg >= 60:
         return "C"
+
     else:
         return "Fail"
 
 
 def display_report(student):
-    """
-    Function to display student report.
-    """
 
     print("\n------ Student Report ------\n")
 
@@ -90,9 +77,6 @@ def display_report(student):
 
 
 def save_to_file(student):
-    """
-    Function to save student data into students.txt file.
-    """
 
     with open("students.txt", "a") as file:
 
@@ -111,17 +95,16 @@ def save_to_file(student):
 
 
 def view_all_students():
-    """
-    Function to display all saved student records.
-    """
 
     try:
         with open("students.txt", "r") as file:
+
             data = file.read()
 
             if data:
                 print("\n------ All Student Records ------\n")
                 print(data)
+
             else:
                 print("\nNo student records found.\n")
 
@@ -130,9 +113,6 @@ def view_all_students():
 
 
 def menu():
-    """
-    Main menu function.
-    """
 
     while True:
 
@@ -163,9 +143,6 @@ def menu():
 
 
 def main():
-    """
-    Main function.
-    """
 
     menu()
 
