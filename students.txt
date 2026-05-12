@@ -1,0 +1,22 @@
+------ Student Record ------
+Name        : joy
+Roll Number : 4
+Python      : 55
+SQL         : 44
+ML          : 60
+Total       : 159
+Average     : 53.00
+Grade       : Fail
+--------------------------------
+
+------ Student Record ------
+Name        : rr
+Roll Number : 2
+Python      : 44
+SQL         : 55
+ML          : 66
+Total       : 165
+Average     : 55.00
+Grade       : Fail
+--------------------------------
+
