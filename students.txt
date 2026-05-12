@@ -1,0 +1,11 @@
+------ Student Record ------
+Name        : arun
+Roll Number : 4
+Python      : 90
+SQL         : 89
+ML          : 76
+Total       : 255
+Average     : 85.00
+Grade       : B
+--------------------------------
+
