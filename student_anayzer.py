@@ -132,20 +132,47 @@ def save_to_database(student):
 def view_all_students():
 
     try:
-        with open("students.txt", "r") as file:
+        connection = psycopg2.connect(
+            host="localhost",
+            database="student_db",
+            user="postgres",
+            password="abhinand12",
+            port="5432"
+        )
 
-            data = file.read()
+        cursor = connection.cursor()
 
-            if data:
-                print("\n------ All Student Records ------\n")
-                print(data)
+        query = "SELECT * FROM students"
 
-            else:
-                print("\nNo student records found.\n")
+        cursor.execute(query)
 
-    except FileNotFoundError:
-        print("\nstudents.txt file not found.\n")
+        records = cursor.fetchall()
 
+        if records:
+
+            print("\n------ All Student Records ------\n")
+
+            for row in records:
+
+                print(f"ID           : {row[0]}")
+                print(f"Name         : {row[1]}")
+                print(f"Roll Number  : {row[2]}")
+                print(f"Python Marks : {row[3]}")
+                print(f"SQL Marks    : {row[4]}")
+                print(f"ML Marks     : {row[5]}")
+                print(f"Total        : {row[6]}")
+                print(f"Average      : {row[7]}")
+                print(f"Grade        : {row[8]}")
+                print("-----------------------------------")
+
+        else:
+            print("\nNo student records found.\n")
+
+        cursor.close()
+        connection.close()
+
+    except Exception as error:
+        print("Database Error:", error)
 
 def menu():
 
