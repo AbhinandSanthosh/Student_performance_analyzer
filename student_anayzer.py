@@ -1,4 +1,5 @@
 # student_analyzer.py
+import psycopg2
 
 def get_valid_marks(subject):
 
@@ -76,22 +77,56 @@ def display_report(student):
     print(f"Grade       : {student['grade']}")
 
 
-def save_to_file(student):
+def save_to_database(student):
 
-    with open("students.txt", "a") as file:
+    try:
+        connection = psycopg2.connect(
+            host="localhost",
+            database="student_db",
+            user="postgres",
+            password="abhinand12",
+            port="5432"
+        )
 
-        file.write("------ Student Record ------\n")
-        file.write(f"Name        : {student['name']}\n")
-        file.write(f"Roll Number : {student['roll_number']}\n")
-        file.write(f"Python      : {student['python']}\n")
-        file.write(f"SQL         : {student['sql']}\n")
-        file.write(f"ML          : {student['ml']}\n")
-        file.write(f"Total       : {student['total']}\n")
-        file.write(f"Average     : {student['average']:.2f}\n")
-        file.write(f"Grade       : {student['grade']}\n")
-        file.write("--------------------------------\n\n")
+        cursor = connection.cursor()
 
-    print("\nStudent data saved successfully!\n")
+        query = """
+        INSERT INTO students
+        (
+            name,
+            roll_number,
+            python_marks,
+            sql_marks,
+            ml_marks,
+            total,
+            average,
+            grade
+        )
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """
+
+        values = (
+            student['name'],
+            student['roll_number'],
+            student['python'],
+            student['sql'],
+            student['ml'],
+            student['total'],
+            student['average'],
+            student['grade']
+        )
+
+        cursor.execute(query, values)
+
+        connection.commit()
+
+        print("\nStudent data saved to PostgreSQL database successfully!\n")
+
+        cursor.close()
+        connection.close()
+
+    except Exception as error:
+        print("Database Error:", error)
 
 
 def view_all_students():
@@ -127,7 +162,7 @@ def menu():
 
             student = get_student_data()
             display_report(student)
-            save_to_file(student)
+            save_to_database(student)
 
         elif choice == "2":
 
